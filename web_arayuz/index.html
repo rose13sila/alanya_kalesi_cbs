@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alanya Kalesi CBS Portalı | Harita Mühendisliği Projesi</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- Üst Bilgi Çubuğu -->
+    <header class="top-header">
+        <div class="brand">
+            <div class="brand-icon">CBS</div>
+            <div>
+                <h1>Alanya Kalesi Coğrafi Bilgi Sistemi (CBS)</h1>
+                <span>PostGIS + GeoServer WFS/WMS + Web CBS Entegrasyonu</span>
+            </div>
+        </div>
+        <div class="header-meta">
+            <button id="btn-measure" class="btn-tool" title="Haritada iki nokta arası jeodezik mesafe ölç">📏 Mesafe Ölç</button>
+            <button id="btn-reset-view" class="btn-tool" title="Tüm Kaleyi Göster ve Filtreleri Sıfırla">🎯 Kaleye Odakla (Genel Görünüm)</button>
+            <div class="badge" id="coord-display">EPSG:4326 | K: 36.535500° D: 31.993000°</div>
+            <div class="badge">
+                <span class="status-dot" id="gs-status-dot"></span>
+                <span id="gs-status-text">GeoServer Bağlanıyor...</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Ana Gövde -->
+    <div class="main-container">
+        <!-- Sol CBS Kontrol Paneli -->
+        <aside class="sidebar">
+            <!-- Özet İstatistikler -->
+            <div class="panel-section">
+                <div class="section-title">
+                    <span>Mekânsal Veri Özeti</span>
+                    <span>12 Tablo</span>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card" id="card-yapilar" title="Yapılar katmanını göster">
+                        <div class="stat-value" id="stat-yapilar">10</div>
+                        <div class="stat-label">Tarihi Yapı (Nokta)</div>
+                    </div>
+                    <div class="stat-card" id="card-sarniclar" title="Sarnıçlar katmanını göster">
+                        <div class="stat-value" id="stat-sarniclar">6</div>
+                        <div class="stat-label">Tarihi Sarnıç (Nokta)</div>
+                    </div>
+                    <div class="stat-card" id="card-yollar" title="Yürüyüş yollarını göster">
+                        <div class="stat-value" id="stat-yollar">3140 m</div>
+                        <div class="stat-label">Yürüyüş Yolu (Çizgi)</div>
+                    </div>
+                    <div class="stat-card" id="card-risk" title="Riskli alanları göster">
+                        <div class="stat-value" id="stat-risk">3</div>
+                        <div class="stat-label">Riskli Alan (Poligon)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Arama ve Dönem Filtreleme -->
+            <div class="panel-section">
+                <div class="section-title">
+                    <span>Yapı Sorgulama & Hızlı Odaklama</span>
+                    <span class="action-link" id="btn-clear-search">Sıfırla</span>
+                </div>
+                <div class="search-row">
+                    <input type="text" id="search-input" class="search-input" placeholder="Yapı ara (örn. Kızılkule, Tersane, İçkale)..." />
+                    <button id="btn-search-go" class="btn-search-go" title="Aranan yapıya haritada git">Bul & Git</button>
+                </div>
+                <select id="period-filter" class="filter-select">
+                    <option value="ALL">Tüm Dönemler ve Yapı Türleri (10 Yapı)</option>
+                    <option value="Selçuklu">Dönem: Selçuklu</option>
+                    <option value="Bizans">Dönem: Bizans</option>
+                    <option value="Karamanoğulları">Dönem: Karamanoğulları</option>
+                    <option value="Savunma">Tür: Savunma Yapıları</option>
+                    <option value="Dini">Tür: Dini Yapılar</option>
+                    <option value="Ticaret">Tür: Ticaret Yapıları</option>
+                </select>
+                <div class="search-results" id="search-results">
+                    <!-- Yapı listesi buraya dinamik gelir; tıklanınca haritada o yapıya uçar -->
+                </div>
+            </div>
+
+            <!-- Katman Yöneticisi -->
+            <div class="panel-section">
+                <div class="section-title">
+                    <span>GeoServer Katmanları (WFS/WMS)</span>
+                    <span class="action-link" id="btn-toggle-all">Tümünü Aç</span>
+                </div>
+                <div class="layer-list" id="layer-list">
+                    <!-- JS tarafından doldurulur -->
+                </div>
+            </div>
+
+            <!-- Seçili Obje Öznitelik ve İlişkisel Veri Kartı -->
+            <div class="panel-section" style="border-bottom: none; flex: 1;">
+                <div class="section-title">
+                    <span>Öznitelik & İlişkisel Sorgu Bilgisi</span>
+                </div>
+                <div class="detail-box" id="feature-detail">
+                    <h3>Haritadan veya Listeden Seçin</h3>
+                    <p style="color: var(--text-muted); font-size: 12px;">
+                        Yukarıdaki listeden bir yapıya veya harita üzerindeki herhangi bir <b>nokta, yürüyüş yolu ya da riskli alana</b> tıkladığınızda PostGIS öznitelik bilgileri ve <b>restorasyon + fotoğraf arşiv kayıtları</b> burada açılır.
+                    </p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Harita Alanı -->
+        <main id="map">
+            <div id="measure-banner" class="measure-banner"></div>
+        </main>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script src="app.js"></script>
+</body>
+</html>

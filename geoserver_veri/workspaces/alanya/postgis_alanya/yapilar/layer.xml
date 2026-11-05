@@ -1,0 +1,16 @@
+<layer>
+  <name>yapilar</name>
+  <id>LayerInfoImpl--4eadcc83:1a1a7ca6736:-7ffa</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl--706a0794:1a13fefacfa:-8000</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl--4eadcc83:1a1a7ca6736:-7ffb</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2026-11-04 18:27:55.202 UTC</dateCreated>
+</layer>

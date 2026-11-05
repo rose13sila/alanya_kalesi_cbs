@@ -1,0 +1,41 @@
+<featureType>
+  <id>FeatureTypeInfoImpl--4eadcc83:1a1a7ca6736:-7fec</id>
+  <name>seyir_teraslari</name>
+  <nativeName>seyir_teraslari</nativeName>
+  <namespace>
+    <id>NamespaceInfoImpl-7063ac1e:1a1544db10b:-7ffb</id>
+  </namespace>
+  <title>Alanya Kalesi Seyir Terasları</title>
+  <keywords>
+    <string>features</string>
+    <string>seyir_teraslari</string>
+  </keywords>
+  <srs>EPSG:4326</srs>
+  <nativeBoundingBox>
+    <minx>31.98</minx>
+    <maxx>32.01</maxx>
+    <miny>36.52</miny>
+    <maxy>36.55</maxy>
+    <crs>EPSG:4326</crs>
+  </nativeBoundingBox>
+  <latLonBoundingBox>
+    <minx>31.98</minx>
+    <maxx>32.01</maxx>
+    <miny>36.52</miny>
+    <maxy>36.55</maxy>
+    <crs>EPSG:4326</crs>
+  </latLonBoundingBox>
+  <projectionPolicy>FORCE_DECLARED</projectionPolicy>
+  <enabled>true</enabled>
+  <store class="dataStore">
+    <id>DataStoreInfoImpl-7063ac1e:1a1544db10b:-7ffa</id>
+  </store>
+  <serviceConfiguration>false</serviceConfiguration>
+  <maxFeatures>0</maxFeatures>
+  <numDecimals>0</numDecimals>
+  <padWithZeros>false</padWithZeros>
+  <forcedDecimal>false</forcedDecimal>
+  <overridingServiceSRS>false</overridingServiceSRS>
+  <skipNumberMatched>false</skipNumberMatched>
+  <circularArcPresent>false</circularArcPresent>
+</featureType>
