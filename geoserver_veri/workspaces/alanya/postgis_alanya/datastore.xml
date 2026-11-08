@@ -27,7 +27,7 @@
     <entry key="create database">false</entry>
     <entry key="Method used to simplify geometries">FAST</entry>
     <entry key="port">5432</entry>
-    <entry key="passwd">crypt2:aY/bJN4prZLRSqeEeOf5mQTXn7nnwg25XziTwbYJXi8=</entry>
+    <entry key="passwd">plain:postgres_password</entry>
     <entry key="min connections">1</entry>
     <entry key="dbtype">postgis</entry>
     <entry key="namespace">http://localhost:8080/geoserver/alanya</entry>
